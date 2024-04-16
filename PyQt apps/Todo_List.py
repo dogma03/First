@@ -14,7 +14,8 @@ h_line = QHBoxLayout()
 addB = QPushButton('Добавить')
 remB = QPushButton('Удалить')
 list = QListWidget()
-line = QLineEdit('Новая задача')
+line = QLineEdit()
+line.setPlaceholderText('Новая задача')
 
 v_line.addWidget(list)
 v_line.addWidget(line)
@@ -24,5 +25,18 @@ h_line.addWidget(remB)
 v_line.addLayout(h_line)
 
 window.setLayout(v_line)
+
+def add_task():
+    task_text = line.text()
+    if task_text:
+        list.addItem(task_text)
+        line.clear()
+
+def delete_task():
+    selected_item = list.currentItem()
+    list.takeItem(list.row(selected_item))
+
+addB.clicked.connect(add_task)
+remB.clicked.connect(delete_task)
 
 app.exec_()
