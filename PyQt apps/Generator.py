@@ -51,7 +51,6 @@ def generate_password():
         symbols += string.digits
     if symbols_c.isChecked():
         symbols += string.punctuation
-    print(symbols)
 
     if len(symbols) == 0:
         gener_pass.setText('Выберите хотя бы одну опцию ну пожалуйста чувак')
