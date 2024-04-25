@@ -42,4 +42,16 @@ v_line.addLayout(low_line)
 # закрепление основного лэйаута для окна
 game.setLayout(v_line)
 
+#-------------------------------------------------------------------------------
+
+class Character():
+    def __init__(self, hp, armor, power, inventory=[]):
+        self.hp = hp
+        self.armor = armor
+        self.power = power
+        self.inventory = inventory
+
+
+
+
 app.exec_()
