@@ -13,22 +13,27 @@ bot = TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    # markup = types.InlineKeyboardMarkup()
-    # dog_btn = types.InlineKeyboardButton('Получить собаку')
-    # markup.add(dog_btn)
+    markup = types.InlineKeyboardMarkup()
+    dog_btn = types.InlineKeyboardButton(text='Получить собаку', callback_data='123')
+    markup.add(dog_btn)
 
-    bot.send_message(message.chat.id, 'салмам по-полам гузмыкбек') #reply_markup=markup)
+    bot.send_message(message.chat.id, 'салмам по-полам гузмыкбек', reply_markup=markup)
     
-@bot.message_handler(commands=['dog'])
-def dog(message):
-    url = random_dog()
-    bot.send_message(message.chat.id, url)
+
+@bot.callback_query_handler(func=lambda call: True)
+def dog(call):
+    if call.data == '123':
+        url = random_dog()
+        bot.send_message(call.message.chat.id, url)   
 
 @bot.message_handler()
 def echo(message):
     bot.send_message(message.chat.id, message.text)
 
 
+# def callback_handler(call):
+#     if call.data == '123':
+#             dog(call.message.chat.id)
 
 
 

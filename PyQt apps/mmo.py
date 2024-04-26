@@ -18,11 +18,10 @@ low_line = QHBoxLayout()
 
 inventory = QListWidget()
 information = QTextEdit()
-btn1 = QPushButton()
-btn2 = QPushButton()
-btn3 = QPushButton()
-btn4 = QPushButton()
-btn5 = QPushButton()
+information.setReadOnly(True)
+btn1 = QPushButton('Использовать')
+btn2 = QPushButton('Защита')
+btn3 = QPushButton('Удар')
 
 h_line.addWidget(inventory)
 h_line.addWidget(information)
@@ -32,8 +31,6 @@ v_line.addLayout(h_line)
 low_line.addWidget(btn1)
 low_line.addWidget(btn2)
 low_line.addWidget(btn3)
-low_line.addWidget(btn4)
-low_line.addWidget(btn5)
 
 v_line.addLayout(low_line)
 
@@ -45,13 +42,26 @@ game.setLayout(v_line)
 #-------------------------------------------------------------------------------
 
 class Character():
-    def __init__(self, hp, armor, power, inventory=[]):
+    def __init__(self, name, hp, armor, power, inventory=[]):
+        self.name = name
         self.hp = hp
         self.armor = armor
         self.power = power
         self.inventory = inventory
+    def print_info(self):
+        information('\n\n\nПоприветствуйте героя ->', self.name)
+        information('Уровень здоровья:', self.hp)
+        information('Уровень брони:', self.armor)
+        information('Сила удара:', self.power)
+    def strike(self, enemy):
+        enemy.armor -= self.power
+        if enemy.armor <= 0:
+            enemy.hp += enemy.armor
+            enemy.armor = 0
 
+goblin = Character('Гоблин', 100, 50, 25)
 
+btn3.clicked.connect(goblin.print_info)
 
 
 app.exec_()
