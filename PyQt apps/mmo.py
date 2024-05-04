@@ -16,30 +16,27 @@ v_line = QVBoxLayout()
 h_line = QHBoxLayout()
 low_line = QHBoxLayout()
 
-inventory = QListWidget()
+inventory = QListWidget() # Ну игровая область там текст инвентарь и сё такое
 information = QTextEdit()
 information.setReadOnly(True)
-btn1 = QPushButton('Использовать')
-btn2 = QPushButton('Защита')
-btn3 = QPushButton('Удар')
+btn1 = QPushButton('Использовать') # кнопки
+btn2 = QPushButton('Защита') # ➡️➡️⬆️
+btn3 = QPushButton('Удар') # ➡️➡️➡️➡️⬆️
 
-h_line.addWidget(inventory)
-h_line.addWidget(information)
+h_line.addWidget(inventory) # добалвление всяких панелек
+h_line.addWidget(information) # ⬆️
 
-v_line.addLayout(h_line)
+v_line.addLayout(h_line)  # закрепление горизонтальной линии на вертикальной направляющей
 
-low_line.addWidget(btn1)
-low_line.addWidget(btn2)
-low_line.addWidget(btn3)
+low_line.addWidget(btn1) # добавление кнопырей
+low_line.addWidget(btn2) # ⬆️
+low_line.addWidget(btn3) # ⬆️
 
 v_line.addLayout(low_line)
 
-# закрепление горизонтальной линии на вертикальной направляющей
+game.setLayout(v_line) # закрепление основного лэйаута для окна
 
-# закрепление основного лэйаута для окна
-game.setLayout(v_line)
-
-#-------------------------------------------------------------------------------
+#------------------------------Классы--------------------------------------------------------
 
 class Character():
     def __init__(self, name, hp, armor, power, inventory=[]):
@@ -59,20 +56,44 @@ class Character():
             enemy.hp += enemy.armor
             enemy.armor = 0
 
+#===================================Функции и всё такое===========================================
+
 def new():
     information.setText(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nПривет герой, кажись это твой первый раз нахождения в этом мире')
     information.setText(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nПривет герой, кажись это твой первый раз нахождения в этом мире\nНо ничего страшного, это не помешает геймплею или истории')
     information.setText(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nПривет герой, кажись это твой первый раз нахождения в этом мире\nНо ничего страшного, это не помешает геймплею или истории\nПо сюжету ты обычный торговец, но гуляя как-то раз по лесу, ты находишь меч, и решаешь встать на путь путешественника')
     information.setText(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nПривет герой, кажись это твой первый раз нахождения в этом мире\nНо ничего страшного, это не помешает геймплею или истории\nПо сюжету ты обычный торговец, но гуляя как-то раз по лесу, ты находишь меч, и решаешь встать на путь путешественника\nНажми кнопку использовать чтобы начать игру')
 
+
+
+def new_walk():
+    information.setText(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nВы решили пройтись по лесу и заметили странно здание, желаете войти?')
+    btn2 = QPushButton('Войти в дом')
+    find_potion = f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nЗайдя в дом вы нашли 3 странных зелья, красное, зелёное и синее, рядом с ними была книга с описанием зелий, какую вы хотите прочесть первой?'
+    btn2.clicked.connect(find_potion)
+    btn1 = QPushButton('Красное зелье')
+    btn1 = QPushButton('Зелёное зелье')
+    btn1 = QPushButton('Синее зелье')
+    btn1.clicked.connect(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nОписание: "Красное зелье увеличивает ваш урон на 3 хода в течении одного боя на 50%"')
+    btn2.clicked.connect(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nОписание: "Зелёное зелье повышает вашу защиту на 3 хода в течении одного матча на 50%"')
+    btn3.clicked.connect(f'\n\n\n\n\n\n\n\n\n\n\n\n\n\nОписание: "Синее зелье повышает ваш уровень здоровья на 3 хода в течении одного матча на 50%')
+
+    btn1 = QPushButton('Использовать')
+    btn2 = QPushButton('Защита')
+    btn3 = QPushButton('Удар')
+
 #--------------------------------------------------------------------------------
 
 
 b_slime = Character('Синий слайм', 25, 5, 5)
+g_slime = Character('Зелёный слайм', 35, 0, 45)
 goblin = Character('Гоблин', 100, 50, 25)
 
 
-btn3.clicked.connect(goblin.print_info)
+
+new()
+btn1.clicked.connect(new_walk)
+
 
 
 app.exec_()
